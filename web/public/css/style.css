@@ -1,0 +1,334 @@
+@import "fonts.css";
+@import "variables.css";
+@import "animations.css";
+@import 'adaptive.css';
+
+*, *:after, *:before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a, input, button, textarea {
+    transition: all 0.3s;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus, button:focus, textarea:focus {
+    box-shadow: 0 0 0 3px var(--focus);
+}
+
+ul {
+    marks: none;
+}
+
+body {
+    color: #fff;
+    background-color: #2d3436;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.appear {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#add_task:hover,
+#delete_all:hover {
+    transform: scale(1.05);
+}
+
+#add_task,
+#delete_all {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #e17055;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    z-index: 5;
+}
+
+#delete_all:disabled {
+    background-color: #bbb;
+    pointer-events: none;
+}
+
+#add_task:after,
+#delete_all:after {
+    content: '';
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+}
+
+#delete_all {
+    bottom: 100px;
+}
+
+#add_task:after {
+    background: url(../icons/plus.svg) no-repeat 50%;
+    background-size: cover;
+}
+
+#delete_all:after {
+    background: url(../icons/rubbish.svg) no-repeat 50%;
+    background-size: cover;
+}
+
+#add_task:active,
+#delete_all:active {
+    transform: scale(1);
+}
+
+.app {
+    max-width: 600px;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+}
+
+.header {
+    padding: 5em 0;
+    flex-basis: 25%;
+}
+
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
+
+#form-details {
+    transition: .3s all;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 250px);
+    display: flex;
+    justify-content: space-between;
+    max-width: 500px;
+    width: 100%;
+}
+
+#form-details input {
+    width: calc(78% - 10px);
+    height: 50px;
+    padding: 10px 50px 10px 15px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    font-size: 16px;
+    color: #fff;
+    position: relative;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, .5);
+}
+
+#form-details .btn {
+    background-color: #bbb;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    pointer-events: none;
+}
+#form-details #reset {
+    position: absolute;
+    top: 5px;
+    left: calc(78% - 53px);
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#form-details input.active + .btn-reset + .btn-ready {
+    background-color: var(--agree);
+    pointer-events: auto;
+}
+
+#form-details #reset:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    width: 30px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+    transform: rotate(45deg);
+    transition: all .3s;
+}
+
+#form-details #reset:before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    width: 30px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+    transform: rotate(-45deg);
+    transition: all .3s;
+}
+
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+    position: relative;
+    margin-top: 10em;
+    text-align: center;
+}
+
+.animation-background {
+    background: linear-gradient(45deg, var(--accent) 0%, var(--accent-2) 100%);
+    animation: morph 30s infinite;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    height: 400px;
+    transition: all 1s ease-in-out;
+    width: 400px;
+    z-index: -1;
+    position: absolute;
+    top: -8em;
+}
+
+.empty-phrase {
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.dropdown {
+    visibility: visible !important;
+    opacity: 1 !important;
+    top: 25vh !important;
+}
+
+.list-section {
+    padding-top: 7em;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: 1px solid #fff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.task > p {
+    width: calc(100% - 130px);
+}
+
+.task > a button,
+.task > button{
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+}
+.task > a button:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../icons/rubbish.svg) no-repeat 50%;
+    background-size: cover;
+}
+
+.task > button:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../icons/edit.svg) no-repeat 50%;
+    background-size: cover;
+}
+
+
+.task button:hover,
+.task a button:hover {
+    transform: scale(1.05);
+}
+
+.task button:active,
+.task a button:active {
+    transform: scale(1);
+}
+
+.form-update {
+    width: 100%;
+    height: 0;
+    transition: all .3s;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-update input,
+.form-update button {
+    visibility: hidden;
+    opacity: 0;
+    border: none;
+    font-size: 16px;
+    height: 50px;
+}
+
+.form-update.update {
+    height: 50px;
+    margin-top: 15px;
+}
+
+.form-update.update input,
+.form-update.update button {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: .3s;
+}
+
+.form-update button {
+    background-color: var(--agree);
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+}
+
+.form-update input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #fff;
+    color: #fff;
+    width: calc(100% - 150px);
+    padding: 10px 15px;
+}

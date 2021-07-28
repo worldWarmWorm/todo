@@ -1,0 +1,90 @@
+@media (max-width: 768px){
+    body .animation-background {
+        display: none;
+    }
+    body .list-section {
+        padding-top: 0;
+    }
+
+    body h1 {
+        font-size: 24px;
+    }
+
+    body #form-details {
+        flex-direction: column;
+        max-width: 290px;
+        left: calc(50% - 145px);
+    }
+
+    body #form-details .btn {
+        padding: 15px 20px;
+        max-width: 290px;
+    }
+
+    body #form-details input {
+        width: 100%;
+        max-width: 290px;
+        margin-bottom: 10px;
+    }
+
+    body #form-details #reset {
+        left: calc(100% - 43px);
+    }
+    body #delete_all {
+        bottom: 20px;
+        right: 80px;
+    }
+
+    body .task {
+        padding: 5px;
+        border: none;
+    }
+
+    body .task > a button,
+    body .task > button {
+        width: 40px;
+        height: 40px;
+    }
+
+    body .list-section {
+        padding-bottom: 80px;
+        padding-top: 9em !important;
+    }
+
+    body .empty {
+        margin-top: 0;
+    }
+
+    body .header {
+        padding: 3em 0;
+        flex-basis: unset;
+    }
+
+    body .dropdown {
+        top: 9em !important;
+    }
+
+    body .form-update button {
+        font-size: 0;
+        background: url(../icons/diskette.svg) no-repeat 50%;
+    }
+
+    body .form-update input {
+        width: calc(100% - 60px);
+    }
+
+    body #add_task,
+    body #delete_all {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-height: 900px) {
+    body .animation-background {
+        display: none;
+    }
+    body .list-section {
+        padding-top: 0;
+    }
+}
