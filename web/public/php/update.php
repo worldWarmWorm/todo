@@ -1,5 +1,8 @@
 <?php
-require_once './config.php';
+require_once '../../app/vendor/autoload.php';
+use App\Datatype\DB;
+
+$pdo = (new DB)->get_pdo();
 $id = $_POST['id'];
 $name = $_POST['name'];
 if ($id) {

@@ -1,8 +1,8 @@
 <?php
-require_once './php/config.php';
-$sql = "SELECT * FROM names";
-$query = $pdo->query($sql);
-$rows = $query->fetchAll(PDO::FETCH_ASSOC);
+require_once '../app/vendor/autoload.php';
+use App\Datatype\DB;
+
+$rows = (new DB())->get_all_tasks();
 ?>
 <!doctype html>
 <html lang="ru">

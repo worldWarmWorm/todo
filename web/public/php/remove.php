@@ -1,5 +1,8 @@
 <?php
-require_once './config.php';
+require_once '../../app/vendor/autoload.php';
+use App\Datatype\DB;
+
+$pdo = (new DB)->get_pdo();
 
 if ($id = $_GET['id']) {
     $sql = "DELETE FROM names WHERE id = :id";
