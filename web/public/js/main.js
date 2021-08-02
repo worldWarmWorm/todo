@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
             inputTask.removeAttribute('class');
             btnReset.classList.remove('appear');
         }
-        console.log(btnSend.getAttribute('disabled'));
     });
 
     btnReset.addEventListener('click', () => {

@@ -2,18 +2,17 @@
 require_once '../../app/vendor/autoload.php';
 use App\Datatype\DB;
 
-$pdo = (new DB)->get_pdo();
+$db = new DB();
+$pdo = $db->get_pdo();
 
-if ($name = $_POST['name']) {
+if ($name = htmlspecialchars($_POST['name'])) {
     $sql = "INSERT INTO names (name) VALUES (:name)";
     $query= $pdo->prepare($sql);
     $query->execute(['name' => $name]);
+    print_r(json_encode($db->get_all_tasks()));
 } else {
-    echo 'Введите имя!';
-    exit();
+    echo 'Ошибка на сервере. Попробуйте позже.';
 }
-
-header('location: /');
 
 
 

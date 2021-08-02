@@ -37,6 +37,10 @@ body {
     opacity: 1 !important;
 }
 
+.task.show {
+    animation: show .3s;
+}
+
 #add_task:hover,
 #delete_all:hover {
     transform: scale(1.05);
