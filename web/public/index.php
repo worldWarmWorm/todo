@@ -35,7 +35,7 @@ $rows = (new DB())->get_all_tasks();
                 if ($rows) {
                     foreach ($rows as $row) {
                         echo '
-                            <li class="task">
+                            <li class="task" data-task="'.$row['id'].'">
                                 <p id="row_'.$row['id'].'">'. $row['name'] .'</p>
                                 <a href="/php/remove.php?id='.$row['id'].'">
                                     <button type="button" id="delete_data_'.$row['id'].'"></button>
