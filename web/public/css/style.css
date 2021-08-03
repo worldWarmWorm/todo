@@ -37,8 +37,12 @@ body {
     opacity: 1 !important;
 }
 
-.task.show {
-    animation: show .3s;
+.show {
+    animation: show .3s forwards;
+}
+
+.hide {
+    animation: hide .3s forwards;
 }
 
 #add_task:hover,
@@ -261,7 +265,7 @@ h1 {
     background-color: transparent;
     border: none;
 }
-.task > a button:after {
+.btn-delete {
     content: '';
     display: block;
     width: 100%;
@@ -270,7 +274,7 @@ h1 {
     background-size: cover;
 }
 
-.task > button:after {
+.btn-update {
     content: '';
     display: block;
     width: 100%;
@@ -280,8 +284,7 @@ h1 {
 }
 
 
-.task button:hover,
-.task a button:hover {
+:is(.btn-delete, .btn-update):hover {
     transform: scale(1.05);
 }
 

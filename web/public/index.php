@@ -37,10 +37,8 @@ $rows = (new DB())->get_all_tasks();
                         echo '
                             <li class="task" data-task="'.$row['id'].'">
                                 <p id="row_'.$row['id'].'">'. $row['name'] .'</p>
-                                <a href="/php/remove.php?id='.$row['id'].'">
-                                    <button type="button" id="delete_data_'.$row['id'].'"></button>
-                                </a>
-                                <button type="button" id="update_data_'.$row['id']. '"></button>
+                                <button type="button" id="delete_data_'.$row['id'].'" class="btn-delete"></button>
+                                <button type="button" id="update_data_'.$row['id']. '" class="btn-update"></button>
                                 <form class="form-update" action="/php/update.php" method="post">
                                     <input type="text" name="name" id="update_name_'.$row['id'].'" autocomplete="off">
                                     <input type="hidden" name="id" value="'.$row['id'].'">
