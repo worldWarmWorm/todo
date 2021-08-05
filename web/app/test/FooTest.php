@@ -2,14 +2,13 @@
 
 namespace AppTest\Datatype;
 
-use App\Datatype\Foo;
+
+use App\Datatype\DB;
+use PDO;
 use PHPUnit\Framework\TestCase;
 
-class FooTest extends TestCase
-{
-    public function testGetName()
-    {
-        $foo = new Foo();
-        $this->assertEquals($foo->getName(), 'Nginx PHP MySQL');
+class DBTest extends TestCase {
+    public function testGetPdo() {
+        $this->assertContainsOnlyInstancesOf(PDO::class, [(new DB())->get_pdo()], 'Contains not only instance of class "PDO".');
     }
 }
