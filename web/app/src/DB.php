@@ -14,10 +14,16 @@ class DB {
     private string $dbname = 'todo';
     private string $charset = 'utf8';
 
+    /**
+     * @return string
+     */
     private function get_dsn(): string {
         return 'mysql:host='.$this->host.';dbname='.$this->dbname.';charset='.$this->charset.';port='.$this->port;
     }
 
+    /**
+     * @return PDO
+     */
     private function db_connect(): PDO {
         try {
             return new PDO($this->get_dsn(), $this->username, $this->password);
@@ -25,10 +31,17 @@ class DB {
             throw new RuntimeException($e->getMessage());
         }
     }
+
+    /**
+     * @return PDO
+     */
     public function get_pdo(): PDO {
         return (new self())->db_connect();
     }
 
+    /**
+     * @return array
+     */
     public function get_all_tasks(): array {
         $pdo = $this->get_pdo();
         $sql = "SELECT * FROM names";
@@ -36,6 +49,10 @@ class DB {
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function get_task($id): array {
         $pdo = $this->get_pdo();
         $sql = "SELECT id, name FROM names where id = :id";
