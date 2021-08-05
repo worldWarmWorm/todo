@@ -310,13 +310,13 @@ h1 {
     height: 50px;
 }
 
-.form-update.update {
+.form-update.expand {
     height: 50px;
     margin-top: 15px;
 }
 
-.form-update.update input,
-.form-update.update button {
+.form-update.expand input,
+.form-update.expand button {
     visibility: visible;
     opacity: 1;
     transition-delay: .3s;

@@ -35,4 +35,12 @@ class DB {
         $query = $pdo->query($sql);
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_task($id): array {
+        $pdo = $this->get_pdo();
+        $sql = "SELECT id, name FROM names where id = :id";
+        $query = $pdo->prepare($sql);
+        $query->execute(['id' => $id]);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -39,7 +39,7 @@ $rows = (new DB())->get_all_tasks();
                                 <p id="row_'.$row['id'].'">'. $row['name'] .'</p>
                                 <button type="button" id="delete_data_'.$row['id'].'" class="btn-delete"></button>
                                 <button type="button" id="update_data_'.$row['id']. '" class="btn-update"></button>
-                                <form class="form-update" action="/php/update.php" method="post">
+                                <form class="form-update" action="/php/update.php" method="post" id="form_update_'.$row['id'].'">
                                     <input type="text" name="name" id="update_name_'.$row['id'].'" autocomplete="off">
                                     <input type="hidden" name="id" value="'.$row['id'].'">
                                     <button type="button" class="btn" id="save_data_'.$row['id'] .'">Сохранить</button>

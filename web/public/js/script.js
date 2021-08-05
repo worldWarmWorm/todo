@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputTask = document.getElementById('input-task'),
         btnReset = document.getElementById('reset'),
         btnSend = document.getElementById('ready'),
-        taskList = document.getElementById('names_list'),
-        tasks = document.querySelectorAll('ol#names_list li');
+        taskList = document.getElementById('names_list');
 
     let actions = {
             imitateAddTask: (data) => {
@@ -57,24 +56,47 @@ document.addEventListener('DOMContentLoaded', () => {
                             task.remove();
                             if (taskList.children.length === 0) {
                                 actions.imitateEmpty(taskList);
+                                inputTask.focus();
                             }
-                        }, 400)
-
+                        }, 301)
                     }
                 }
             },
             removeTask: async (task_id) => {
-                const formData = new FormData(),
+                let formData = new FormData(),
                     url = `../php/remove.php?id=${task_id}`;
                     formData.append('id', task_id);
 
                 let response = await fetch(url);
-                if (response.ok) {
-                    actions.imitateRemoveTask(task_id)
-                } else {
+                response.ok ?
+                    actions.imitateRemoveTask(task_id) :
                     console.error(`Статус "${response.status}"`);
-                }
+            },
+            imitateUpdateTask: (data) => {
+                let form_update = document.getElementById(`form_update_${data[0].id}`),
+                    task_label = document.getElementById(`row_${data[0].id}`);
+                task_label.innerHTML = data[0].name;
+                form_update.classList.remove('expand');
+            },
+            updateTask: async (task_id) => {
+                let task_input_name = document.getElementById(`update_name_${task_id}`),
+                    task_input_id = task_input_name.nextElementSibling,
+                    form_data = new FormData();
+                form_data.append('name', task_input_name.value);
+                form_data.append('id', task_input_id.value);
 
+
+                let url = '../php/update.php',
+                    response = await fetch(url, {
+                        method: 'POST',
+                        body: form_data
+                    }),
+                    data = await response.json()
+
+                if (!response.ok) {
+                    throw new Error(`Не удалось получить ${url}, статус: ${response.status}`);
+                }
+                actions.imitateUpdateTask(data);
             },
             imitateEmpty: (task_list) => {
                 task_list.innerHTML =  `
@@ -102,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 inputTask.blur();
             }, 301)
         }
-
     });
 
     inputTask.addEventListener('input', () => {
@@ -127,10 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         actions.addTask();
         inputTask.value = '';
+        btnReset.classList.remove('appear');
         inputTask.focus();
+        let empty = document.querySelector('.empty');
+        if (empty) {
+            if (empty.classList.contains('show')) {
+                empty.classList.remove('show');
+            }
+            empty.classList.add('hide');
+            setTimeout(() => {
+                empty.remove();
+            }, 301)
+        }
     }
-
-
 
     if (taskList) {
         let tmpData = {},
@@ -141,37 +171,44 @@ document.addEventListener('DOMContentLoaded', () => {
             let t = e.target;
             if (t.id.startsWith('update_data_')) {
                 let form = t.nextElementSibling,
-                    idValue = t.nextElementSibling.children[1],
-                    nameValue = t.nextElementSibling.children[0],
-                    saveData = t.nextElementSibling.children[2],
+                    id_value = t.nextElementSibling.children[1],
+                    name_value = t.nextElementSibling.children[0],
+                    save_data = t.nextElementSibling.children[2],
                     row = t.previousElementSibling.previousElementSibling,
                     data = {
-                        'row': row,
-                        'target': t,
-                        'form': form,
-                        'nameValue': nameValue,
-                        'idValue': idValue,
-                        'saveData': saveData
+                        row: row,
+                        target: t,
+                        form: form,
+                        name_value: name_value,
+                        id_value: id_value,
+                        save_data: save_data
                     };
-                form.classList.toggle('update');
-                data.nameValue.value = data.row.innerHTML;
+                if (!form.classList.contains('expand')) {
+                    form.classList.add('expand');
+                    setTimeout(() => {
+                        data.name_value.focus();
+                    }, 400)
+                } else {
+                    form.classList.remove('expand');
+                }
+                data.name_value.value = data.row.innerHTML;
                 tmpData = getData(data);
             }
 
             if (t.id.startsWith('save_data_')) {
                 e.preventDefault();
                 let form = t.closest('form'),
-                    idValue = t.previousElementSibling,
-                    nameValue = idValue.previousElementSibling,
+                    input_id = t.previousElementSibling,
+                    input_name = input_id.previousElementSibling,
                     data = {
-                        'target': t,
-                        'form': form,
-                        'nameValue': nameValue,
-                        'idValue': idValue
+                        target: t,
+                        form: form,
+                        input_name: input_name,
+                        input_id: input_id
                     };
                 tmpData = getData(data);
-                tmpData.nameValue.value ?
-                    form.submit() :
+                tmpData.input_name.value ?
+                    actions.updateTask(tmpData.input_id.value) :
                     alert('Поле не должно быть пустым!');
             }
 
@@ -182,4 +219,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    let btnDeleteAll = document.getElementById('delete_all'),
+        empty = document.querySelector('.empty');
+    if (!empty) {
+        btnDeleteAll.removeAttribute('disabled');
+    }
+    btnDeleteAll.addEventListener('click', () => {
+        (!empty && confirm('Уверены, что хотите удалить все задания?')) ?
+            window.location.href = '/php/remove-all.php' :
+            alert('Заданий еще не создано');
+    });
 });
