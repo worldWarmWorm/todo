@@ -226,8 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnDeleteAll.removeAttribute('disabled');
     }
     btnDeleteAll.addEventListener('click', () => {
-        (!empty && confirm('Уверены, что хотите удалить все задания?')) ?
-            window.location.href = '/php/remove-all.php' :
-            alert('Заданий еще не создано');
+        if (!empty && confirm('Уверены, что хотите удалить все задания?')) {
+            window.location.href = '/php/remove-all.php';
+        }
     });
 });
