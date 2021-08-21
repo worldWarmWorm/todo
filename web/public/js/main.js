@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         delete_all_tasks: async (is_confirmed = 'no') => {
             if (is_confirmed === 'yes') {
                 let formData = new FormData(),
-                    url = `../php/remove-all.php?accept=${is_confirmed}`;
+                    url = `../php/remove-all.php?is_confirmed=${is_confirmed}`;
                 formData.append('accept', is_confirmed);
                 let response = await fetch(url);
                 if (response.ok) {

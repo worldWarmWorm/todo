@@ -45,8 +45,8 @@ body {
     animation: hide .3s forwards;
 }
 
-#add_task:hover,
-#delete_all:hover {
+:is(#add_task, #delete_all):hover,
+:is(#add_task, #delete_all):focus {
     transform: scale(1.05);
 }
 
